@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title> LOGO SIZER  </title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="todicone" href="img/tod-tv-logo-D8BDB5883C-seeklogo.com.png">
+</head>
+<body>
+    <img class="Logo" src="img/Logo-Sizer-.png" alt="" height="60px">
+  <h2>TOD Logo Resizer v1.1</h2>
+  <input type="file" id="upload" accept="image/*"><br><br>
+  <canvas id="canvas" width="600" height="600"></canvas><br><br>
+  <button id="download"> Download </button>
+
+  <script>
+    const uploadInput = document.getElementById("upload");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const downloadBtn = document.getElementById("download");
+
+    uploadInput.addEventListener("change", function () {
+      const file = uploadInput.files[0];
+      if (!file) return;
+
+      const img = new Image();
+      img.onload = function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+        const newWidth = img.width * scale;
+        const newHeight = img.height * scale;
+        const x = (canvas.width - newWidth) / 2;
+        const y = (canvas.height - newHeight) / 2;
+
+        ctx.drawImage(img, x, y, newWidth, newHeight);
+      };
+
+      img.src = URL.createObjectURL(file);
+    });
+
+    downloadBtn.addEventListener("click", function () {
+      const link = document.createElement("a");
+      link.download = "resized-logo.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  </script>
+    <p font-size:10px>This tool created by Hatim Alhaj</p>
+</body>
+</html>
