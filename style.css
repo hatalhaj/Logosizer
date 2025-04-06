@@ -6,6 +6,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #ffb400;
+
   }
   
   h2 {
